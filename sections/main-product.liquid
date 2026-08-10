@@ -6,6 +6,8 @@
 {{ 'component-tab.css' | asset_url | stylesheet_tag }}
 {{ 'component-product-form.css' | asset_url | stylesheet_tag }}
 {{ 'component-grid.css' | asset_url | stylesheet_tag }}
+{% comment %} Loaded last so its overrides win ties against the component styles above. {% endcomment %}
+{{ 'component-product-premium.css' | asset_url | stylesheet_tag }}
 
 {% assign product_page_layout = settings.product_page_layout %}
 
