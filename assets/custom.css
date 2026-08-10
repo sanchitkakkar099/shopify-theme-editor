@@ -9,3 +9,6 @@
 // Please use only CSS to style the layout.
 //
 // =============================================================================*/
+.loox-rating.loox-widget {
+    margin-bottom: 8px;
+}
