@@ -197,7 +197,327 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 shopify-payment-terms{
 margin-bottom:12px;
 }
+/* ==========================================
+   EGARD LEFT / RIGHT CONTENT SECTIONS
+========================================== */
 
+.hypervisual__content-block--column-two-up {
+  background: #f7f5f1 !important;
+  overflow: hidden;
+}
+
+.hypervisual__content-block--column-two-up
+.hypervisual__columns-wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 620px;
+}
+
+
+/* ==========================================
+   COLUMN BASE
+========================================== */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__column {
+  width: 50% !important;
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   TEXT COLUMN
+========================================== */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__content-block--text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f7f5f1 !important;
+
+  padding: 70px 7% !important;
+}
+
+
+.hypervisual__content-block--column-two-up
+.hypervisual__content-block--text
+.hypervisual__text-wrapper {
+  width: 100%;
+  max-width: 610px;
+
+  padding: 0 !important;
+
+  text-align: left !important;
+}
+
+
+/* HEADING */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one {
+  position: relative;
+
+  margin: 0 0 32px;
+  padding: 0 0 22px;
+
+  text-align: left !important;
+}
+
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one > div {
+  font-size: 38px !important;
+  line-height: 1.2 !important;
+
+  font-weight: 400;
+
+  letter-spacing: 3.5px;
+
+  color: #181818 !important;
+}
+
+
+/* GOLD LINE */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 55px;
+  height: 1px;
+
+  background: #b89b62;
+}
+
+
+/* PARAGRAPH */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_two {
+  text-align: left !important;
+}
+
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_two > div {
+  max-width: 570px;
+
+  font-size: 17px !important;
+  line-height: 1.9 !important;
+
+  font-weight: 400;
+
+  letter-spacing: 0.1px;
+
+  color: #57534e !important;
+}
+
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_two em {
+  color: #222 !important;
+  font-weight: 500;
+}
+
+
+
+/* ==========================================
+   IMAGE COLUMN
+========================================== */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__content-block--image {
+  overflow: hidden;
+
+  min-height: 620px;
+}
+
+
+.hypervisual__content-block--column-two-up
+.hypervisual__content-block--image img {
+  width: 100%;
+  height: 100%;
+
+  min-height: 620px;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.8s ease;
+}
+
+
+.hypervisual__content-block--column-two-up:hover
+.hypervisual__content-block--image img {
+  transform: scale(1.02);
+}
+
+
+
+/* ==========================================
+   CASEBACK IMAGE SPECIAL FIX
+   White background image hai, isliye contain
+========================================== */
+
+.hypervisual__content-block--column-two-up
+img[src*="Quantus_V3_CASEBACK"] {
+  object-fit: contain !important;
+
+  background: #f7f5f1;
+
+  padding: 70px;
+
+  box-sizing: border-box;
+}
+
+
+
+/* ==========================================
+   LONG HEADING FIX
+========================================== */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one > div {
+  max-width: 570px;
+}
+
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one > div:has(br) {
+  line-height: 1.25 !important;
+}
+
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media screen and (max-width: 1100px) {
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__content-block--text {
+    padding: 55px 5% !important;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_one > div {
+    font-size: 30px !important;
+
+    letter-spacing: 2.5px;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_two > div {
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  img[src*="Quantus_V3_CASEBACK"] {
+    padding: 45px;
+  }
+
+}
+
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media screen and (max-width: 767px) {
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__columns-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-height: auto;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__column {
+    width: 100% !important;
+  }
+
+
+  /* image always first */
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__content-block--image {
+    order: 1;
+
+    min-height: auto;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__content-block--text {
+    order: 2;
+
+    padding: 42px 24px 48px !important;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__content-block--image img {
+    height: 420px;
+
+    min-height: auto;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  img[src*="Quantus_V3_CASEBACK"] {
+    object-fit: contain !important;
+
+    height: auto;
+
+    padding: 35px 20px;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_one {
+    margin-bottom: 25px;
+
+    padding-bottom: 18px;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_one > div {
+    font-size: 26px !important;
+
+    line-height: 1.25 !important;
+
+    letter-spacing: 2px;
+  }
+
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_two > div {
+    font-size: 15px !important;
+
+    line-height: 1.75 !important;
+  }
+
+}
         </style>
         </body>
 </html>
