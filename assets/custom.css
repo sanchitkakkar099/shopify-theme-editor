@@ -15,3 +15,6 @@
 .productView-price .price {
     margin-bottom: 10px;
 }
+.quantity__container {
+    width: 150px;
+}
