@@ -5,89 +5,69 @@
 // No markup or Liquid logic is changed; every rule is scoped to the product
 // template so nothing here can leak into other pages.
 //
-// Active layout at time of writing: settings.product_page_layout = "full_width_2"
+// Active layout: settings.product_page_layout = "full_width_2"
 // -> snippets/product-page-full-width-2.liquid
+//
+// DESIGN INTENT
+// Editorial luxury, not e-commerce chrome. The rules below consistently prefer:
+//   - hairline rules over filled grey panels
+//   - whitespace over borders
+//   - one ink colour + one muted tone, no decorative colour
+//   - a single serif/sans pairing carried by the theme's own fonts
+// Filled boxes make a $395 watch look like a checkout form. Everything that can
+// be separated by space instead of a border, is.
 //
 // Sections:
 //   1.  Design tokens
-//   2.  Column balance & vertical rhythm
+//   2.  Column balance & measure
 //   3.  Rating + title
 //   4.  Price
-//   5.  Trust / assurance list (custom_liquid block)
+//   5.  Assurance list (custom_liquid block)  << includes empty-<p> fix
 //   6.  Variant picker
-//   7.  Buy buttons & wishlist
-//   8.  Perks row (size chart / compare color)
-//   9.  Media gallery & thumbnails
-//   10. Tabs / accordion
-//   11. Sticky add to cart
-//   12. Below-the-fold sections
-//   13. Mobile refinements
-//   14. Motion & focus accessibility
+//   7.  Quantity
+//   8.  Buy buttons & wishlist
+//   9.  Perks row
+//   10. Sale badge
+//   11. Media gallery & thumbnails
+//   12. Tabs / accordion
+//   13. Sticky add to cart
+//   14. Mobile refinements
+//   15. Motion & focus accessibility
 // =============================================================================*/
 
 
 /*// 1. Design tokens
-// -----------------------------------------------------------------------------
-// Single place to retune the whole page. Values fall back to theme variables
-// where the theme already exposes one, so brand colour changes still flow through.
 // =========================================================================== */
 body.template-product {
-    --pp-ink: var(--color-title, #101010);
-    --pp-muted: #6b6b6b;
-    --pp-line: rgba(16, 16, 16, 0.10);
-    --pp-line-strong: rgba(16, 16, 16, 0.22);
-    --pp-surface: #f7f7f5;
-    --pp-accent: var(--pp-ink);
+    --pp-ink: #14140f;
+    --pp-muted: #74736d;
+    --pp-faint: #9a998f;
+    --pp-line: rgba(20, 20, 15, 0.12);
+    --pp-line-soft: rgba(20, 20, 15, 0.07);
 
-    --pp-radius: 12px;
-    --pp-radius-sm: 8px;
-    --pp-radius-pill: 999px;
+    --pp-radius: 2px;
+    --pp-radius-sm: 2px;
 
     --pp-ease: cubic-bezier(0.4, 0, 0.2, 1);
-    --pp-speed: 240ms;
+    --pp-speed: 260ms;
 
-    --pp-shadow-sm: 0 1px 2px rgba(16, 16, 16, 0.06);
-    --pp-shadow-md: 0 6px 20px -6px rgba(16, 16, 16, 0.18);
-
-    /* Vertical rhythm unit for the info column */
-    --pp-gap: 18px;
+    /* Vertical rhythm */
+    --pp-rule-gap: 22px;
 }
 
 
-/*// 2. Column balance & vertical rhythm
+/*// 2. Column balance & measure
 // -----------------------------------------------------------------------------
-// The full-width-2 layout lets the info column stretch as wide as the viewport,
-// which pushes line length well past a comfortable reading measure and leaves
-// the buy box visually adrift. Cap the measure and give the column consistent
-// spacing between blocks.
+// full_width_2 lets the info column stretch to the viewport, pushing line length
+// far past a comfortable measure and leaving the buy box visually adrift.
 // =========================================================================== */
 @media (min-width: 1200px) {
     body.template-product .halo-productView-right.productView-details {
-        padding-left: 20px;
+        padding-left: 32px;
     }
 
     body.template-product .halo-productView-right .productView-product {
-        max-width: 620px;
-    }
-}
-
-/* The theme drives per-block spacing from inline --spacing-top/--spacing-bottom
-   custom properties set in the theme editor. Rather than fight those with
-   !important, normalise the *gaps between* blocks so the column reads as one
-   rhythm even when individual block settings drift. */
-body.template-product .productView-product > .productView-moreItem + .productView-moreItem {
-    margin-top: 0;
-}
-
-body.template-product .productView-product > .productView-moreItem {
-    position: relative;
-}
-
-/* Give the whole buy box a light card treatment on desktop so it reads as a
-   deliberate, contained unit rather than text floating beside the gallery. */
-@media (min-width: 1025px) {
-    body.template-product .halo-productView-right .productView-product {
-        padding-bottom: 4px;
+        max-width: 560px;
     }
 }
 
@@ -95,51 +75,48 @@ body.template-product .productView-product > .productView-moreItem {
 /*// 3. Rating + title
 // =========================================================================== */
 body.template-product .productView-title {
-    font-size: clamp(22px, 1.6vw + 14px, 30px);
-    line-height: 1.22;
-    letter-spacing: -0.015em;
-    font-weight: 600;
+    font-size: clamp(24px, 1.5vw + 15px, 34px);
+    line-height: 1.18;
+    letter-spacing: -0.018em;
+    font-weight: 500;
     color: var(--pp-ink);
     text-wrap: balance;
 }
 
-/* Loox star rating sits directly above the title — pull it tight so the two
-   read as a single header unit instead of two stranded rows. */
 body.template-product .halo-productView-right .loox-rating,
 body.template-product .halo-productView-right [class*="loox-rating"] {
     display: inline-flex;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    opacity: 0.95;
 }
 
 
 /*// 4. Price
 // -----------------------------------------------------------------------------
-// Price is the second-most-scanned element after the image. Make it unambiguous,
-// use tabular figures so variant switching doesn't reflow the row, and give the
-// compare-at price a clearly subordinate treatment.
+// Tabular figures so switching variants never reflows the row. The compare-at
+// price is demoted hard — it should register, not compete.
 // =========================================================================== */
 body.template-product .productView-price .price {
     align-items: baseline;
-    gap: 10px;
+    gap: 12px;
 }
 
 body.template-product .productView-price .price.price--medium .price-item,
 body.template-product .productView-price .price.price--medium .price-item .money {
-    font-size: clamp(20px, 0.6vw + 17px, 24px);
-    font-weight: 600;
+    font-size: clamp(21px, 0.5vw + 18px, 25px);
+    font-weight: 500;
     letter-spacing: -0.01em;
     color: var(--pp-ink);
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1;
 }
 
-/* Compare-at / struck price: smaller, muted, never competing with the real price. */
 body.template-product .productView-price .price__sale .price__compare .price-item,
 body.template-product .productView-price .price__sale .price__compare .price-item .money {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
-    color: var(--pp-muted);
+    color: var(--pp-faint);
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
 }
@@ -150,143 +127,194 @@ body.template-product .productView-price + .volume-pricing-note {
 }
 
 
-/*// 5. Trust / assurance list
+/*// 5. Assurance list (custom_liquid block)
 // -----------------------------------------------------------------------------
-// The shipping / warranty / returns block is a custom_liquid block, which the
-// theme renders with no wrapper — it lands as a bare <p> among the wrapped
-// .productView-moreItem blocks. That makes `> p` a reliable and stable hook.
+// IMPORTANT — the block's HTML in templates/product.json ends with `<p>` rather
+// than `</p>`:
 //
-// Currently it is an unstyled run of ✔ lines separated by <br>. Promoting it to
-// a bordered panel with aligned marks turns a wall of text into a scannable
-// reassurance block right where purchase hesitation peaks.
+//     ...Proudly designed in the USA<p>
+//
+// The browser auto-closes the first paragraph and emits a SECOND, EMPTY <p>.
+// A bare `> p` selector therefore paints an empty panel below the real one.
+// Scoping to :first-of-type and hiding the rest removes it without touching the
+// template. Fixing the stray tag in the theme editor is still worth doing — this
+// rule just means the page is correct either way.
+//
+// Treatment: hairline rules, no fill. A grey box here reads as a system message;
+// rules read as an editorial spec block.
 // =========================================================================== */
-body.template-product .halo-productView-right .productView-product > p {
-    margin: 4px 0 20px;
-    padding: 16px 18px;
-    background: var(--pp-surface);
-    border: 1px solid var(--pp-line);
-    border-radius: var(--pp-radius);
+body.template-product .halo-productView-right .productView-product > p:first-of-type {
+    margin: 6px 0 26px;
+    padding: 20px 0;
+    border-top: 1px solid var(--pp-line);
+    border-bottom: 1px solid var(--pp-line);
+    background: none;
     font-size: 14px;
-    line-height: 2;
-    color: #2b2b2b;
-    letter-spacing: 0.005em;
+    line-height: 2.15;
+    color: var(--pp-muted);
+    letter-spacing: 0.012em;
 }
 
-/* Nudge the ✔ glyphs onto their own optical column so the text edges align. */
-body.template-product .halo-productView-right .productView-product > p {
-    word-spacing: 0.06em;
+/* Kill the empty paragraph the unclosed tag produces. */
+body.template-product .halo-productView-right .productView-product > p:not(:first-of-type) {
+    display: none;
+}
+
+body.template-product .halo-productView-right .productView-product > p:empty {
+    display: none;
 }
 
 
 /*// 6. Variant picker
 // -----------------------------------------------------------------------------
-// picker_type = "button". Larger hit targets, a selected state that reads at a
-// glance, and a soft-out treatment that doesn't look like a rendering bug.
+// picker_type = "button". Square-ish, hairline, ink-filled when active — the
+// standard luxury-retail treatment. No rounded pills, no shadows.
 // =========================================================================== */
 body.template-product .productView-variants .form__label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--pp-muted);
-    margin-bottom: 10px;
+    color: var(--pp-faint);
+    margin-bottom: 12px;
 }
 
 body.template-product .product-form__input:not(.product-form__swatch) .product-form__label .text {
-    min-height: 42px;
+    min-height: 46px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 16px;
+    padding: 0 20px;
     border-radius: var(--pp-radius-sm);
-    border: 1px solid var(--pp-line-strong);
+    border: 1px solid var(--pp-line);
     font-size: 14px;
     line-height: 1.2;
-    background: #fff;
+    letter-spacing: 0.01em;
+    background: transparent;
+    color: var(--pp-ink);
     transition: border-color var(--pp-speed) var(--pp-ease),
                 background-color var(--pp-speed) var(--pp-ease),
-                color var(--pp-speed) var(--pp-ease),
-                box-shadow var(--pp-speed) var(--pp-ease);
+                color var(--pp-speed) var(--pp-ease);
 }
 
 body.template-product .product-form__input:not(.product-form__swatch) .product-form__label:hover .text {
     border-color: var(--pp-ink);
 }
 
-/* Selected: filled, plus a hairline ring so it survives against any brand colour. */
+/* Active = ink fill. Unmistakable at a glance, no ring stacking. */
 body.template-product .product-form__radio:checked + .product-form__label .text {
+    background: var(--pp-ink);
     border-color: var(--pp-ink);
-    box-shadow: 0 0 0 1px var(--pp-ink) inset;
-    font-weight: 500;
+    color: #fff;
 }
 
-/* Colour swatches: ring the active one instead of relying on a 1px border shift. */
 body.template-product .product-form__swatch .product-form__label {
     transition: box-shadow var(--pp-speed) var(--pp-ease),
                 border-color var(--pp-speed) var(--pp-ease);
 }
 
 body.template-product .product-form__swatch .product-form__radio:checked + .product-form__label {
-    box-shadow: 0 0 0 2px #fff inset, 0 0 0 3px var(--pp-ink);
+    box-shadow: 0 0 0 2px #fff inset, 0 0 0 2px var(--pp-ink);
 }
 
 body.template-product .product-form__label.soldout {
-    opacity: 0.45;
+    opacity: 0.35;
 }
 
 body.template-product .product-form__input + .product-form__input {
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
 
-/*// 7. Buy buttons & wishlist
+/*// 7. Quantity
 // -----------------------------------------------------------------------------
-// The primary CTA is the single highest-leverage element on the page. Taller
-// target, calmer type, and a lift on hover that signals interactivity without
-// the shake animation doing all the work.
+// Match the variant buttons so the two controls read as one family.
+// =========================================================================== */
+body.template-product .quantity__label,
+body.template-product .productView-quantity .form-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pp-faint);
+    margin-bottom: 12px;
+}
+
+body.template-product .quantity__container {
+    border: 1px solid var(--pp-line);
+    border-radius: var(--pp-radius-sm);
+    height: 46px;
+    align-items: center;
+    transition: border-color var(--pp-speed) var(--pp-ease);
+}
+
+body.template-product .quantity__container:hover,
+body.template-product .quantity__container:focus-within {
+    border-color: var(--pp-ink);
+}
+
+body.template-product .quantity__container .btn-quantity {
+    color: var(--pp-muted);
+    transition: color var(--pp-speed) var(--pp-ease);
+}
+
+body.template-product .quantity__container .btn-quantity:hover {
+    color: var(--pp-ink);
+}
+
+body.template-product .quantity__input {
+    font-variant-numeric: tabular-nums;
+    color: var(--pp-ink);
+    border: 0;
+}
+
+body.template-product .productView-subtotal {
+    font-variant-numeric: tabular-nums;
+    color: var(--pp-muted);
+    font-size: 14px;
+}
+
+
+/*// 8. Buy buttons & wishlist
+// -----------------------------------------------------------------------------
+// Squared, full-bleed ink CTA with wide tracking. The hover is a tone shift, not
+// a bouncing card — lift-and-shadow reads consumer-app, not luxury.
 // =========================================================================== */
 body.template-product .productView-action .button,
 body.template-product .productView-buttons .product-form__submit {
-    min-height: 54px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    min-height: 56px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     border-radius: var(--pp-radius-sm);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    box-shadow: var(--pp-shadow-sm);
-    transition: transform var(--pp-speed) var(--pp-ease),
-                box-shadow var(--pp-speed) var(--pp-ease),
-                background-color var(--pp-speed) var(--pp-ease),
+    box-shadow: none;
+    transition: background-color var(--pp-speed) var(--pp-ease),
                 color var(--pp-speed) var(--pp-ease),
-                border-color var(--pp-speed) var(--pp-ease);
+                border-color var(--pp-speed) var(--pp-ease),
+                opacity var(--pp-speed) var(--pp-ease);
 }
 
 body.template-product .productView-action .button:hover,
 body.template-product .productView-buttons .product-form__submit:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--pp-shadow-md);
-}
-
-body.template-product .productView-action .button:active,
-body.template-product .productView-buttons .product-form__submit:active {
-    transform: translateY(0);
-    box-shadow: var(--pp-shadow-sm);
+    transform: none;
+    box-shadow: none;
+    opacity: 0.86;
 }
 
 body.template-product .productView-action .button[disabled] {
-    opacity: 0.45;
+    opacity: 0.35;
     box-shadow: none;
     transform: none;
     cursor: not-allowed;
 }
 
-/* Keep the wishlist control the same height as the CTA so the row sits level.
-   .productView-action is width: calc(100% - 70px) in the base theme — that
-   reservation is preserved, only the alignment is corrected. */
-body.template-product .productView-groupTop .pvGroup-row,
-body.template-product .productView-groupTop {
+/* Level the wishlist control with the CTA. .productView-action keeps its
+   width: calc(100% - 70px) reservation from the base theme. */
+body.template-product .productView-groupTop,
+body.template-product .productView-groupTop .pvGroup-row {
     align-items: stretch;
 }
 
@@ -294,36 +322,30 @@ body.template-product .productView-wishlist {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--pp-line-strong);
+    border: 1px solid var(--pp-line);
     border-radius: var(--pp-radius-sm);
-    min-width: 54px;
-    transition: border-color var(--pp-speed) var(--pp-ease),
-                background-color var(--pp-speed) var(--pp-ease);
+    min-width: 56px;
+    margin-left: 12px;
+    transition: border-color var(--pp-speed) var(--pp-ease);
 }
 
 body.template-product .productView-wishlist:hover {
     border-color: var(--pp-ink);
-    background: var(--pp-surface);
-}
-
-body.template-product .productView-subtotal {
-    font-variant-numeric: tabular-nums;
 }
 
 
-/*// 8. Perks row (size chart / compare colour)
+/*// 9. Perks row
 // -----------------------------------------------------------------------------
-// These are secondary utilities. Currently a horizontally scrolling strip with a
-// visible black scrollbar. Let it wrap instead, and mute the links so they stop
-// competing with the CTA directly above them.
+// Base theme makes this a horizontal scroller with a visible black scrollbar.
+// Let it wrap and recede — these are utilities, not calls to action.
 // =========================================================================== */
 body.template-product .productView-perks {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 24px;
+    gap: 12px 28px;
     white-space: normal;
     overflow-x: visible;
-    padding-top: 4px;
+    padding-top: 6px;
 }
 
 body.template-product .productView-perks > div + div {
@@ -331,8 +353,10 @@ body.template-product .productView-perks > div + div {
 }
 
 body.template-product .productView-perks .link {
-    font-size: 13px;
-    color: var(--pp-muted);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pp-faint);
     transition: color var(--pp-speed) var(--pp-ease);
 }
 
@@ -341,13 +365,34 @@ body.template-product .productView-perks .link:hover {
 }
 
 
-/*// 9. Media gallery & thumbnails
+/*// 10. Sale badge
 // -----------------------------------------------------------------------------
-// Soften the hard image edges and — importantly — fix the active-thumbnail cue.
-// The base theme sets the CURRENT thumbnail to opacity .3, so the image you are
-// looking at appears greyed out while the others look selected. That reads as
-// backwards. Inverted here: current is full strength with a ring, the rest are
-// gently recessed.
+// The stock badge is a saturated red rectangle — the single least premium
+// element on the page. Reduced to a quiet ink-outlined marker.
+// =========================================================================== */
+body.template-product .halo-productBadges .badge {
+    border-radius: var(--pp-radius-sm);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+}
+
+body.template-product .halo-productBadges .badge.sale-badge {
+    background-color: transparent;
+    color: var(--pp-ink);
+    border: 1px solid var(--pp-line);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+
+/*// 11. Media gallery & thumbnails
+// -----------------------------------------------------------------------------
+// Also fixes an inverted cue in the base theme: component-product.css sets the
+// CURRENT thumbnail to opacity .3, so the image you are looking at appears
+// greyed out while the others look selected. Inverted here.
 // =========================================================================== */
 body.template-product .productView-image,
 body.template-product .productView-image-wrapper {
@@ -362,26 +407,24 @@ body.template-product .productView-thumbnail .productView-thumbnail-link {
 }
 
 body.template-product .productView-thumbnail .productView-thumbnail-link img {
-    opacity: 0.55;
-    transition: opacity var(--pp-speed) var(--pp-ease),
-                transform var(--pp-speed) var(--pp-ease);
+    opacity: 0.42;
+    transition: opacity var(--pp-speed) var(--pp-ease);
 }
 
 body.template-product .productView-thumbnail:hover .productView-thumbnail-link img {
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
 body.template-product .productView-thumbnail.slick-current .productView-thumbnail-link {
-    border-color: var(--pp-line-strong);
+    border-color: var(--pp-line);
 }
 
 body.template-product .productView-thumbnail.slick-current .productView-thumbnail-link img {
     opacity: 1;
 }
 
-/* Zoom affordance: keep it subtle rather than a hard black chip. */
 body.template-product .productView-iconZoom {
-    opacity: 0.6;
+    opacity: 0.45;
     transition: opacity var(--pp-speed) var(--pp-ease);
 }
 
@@ -390,15 +433,16 @@ body.template-product .productView-images:hover .productView-iconZoom {
 }
 
 
-/*// 10. Tabs / accordion
+/*// 12. Tabs / accordion
 // -----------------------------------------------------------------------------
-// tab_layout = "vertical" (accordion). Hairline rules, generous tap targets, and
-// a chevron that animates rather than snapping.
+// tab_layout = "vertical". Hairline rules, uppercase micro-headings, generous
+// reading measure in the body copy.
 // =========================================================================== */
 body.template-product .productView-tab .toggleLink,
 body.template-product .productView-tab .tab .tab-title {
     border-top: 1px solid var(--pp-line);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--pp-ink);
     transition: color var(--pp-speed) var(--pp-ease);
 }
@@ -423,109 +467,80 @@ body.template-product .productView-tab .tab-title.is-open .icon-dropdown {
 body.template-product .productView-tab .toggle-content,
 body.template-product .productView-tab .tab-content {
     font-size: 15px;
-    line-height: 1.75;
-    color: #3a3a3a;
-    padding-bottom: 22px;
+    line-height: 1.8;
+    color: #4a4944;
+    padding-bottom: 26px;
+    max-width: 62ch;
 }
 
 body.template-product .productView-tab .toggle-content p + p,
 body.template-product .productView-tab .tab-content p + p {
-    margin-top: 12px;
+    margin-top: 14px;
 }
 
 
-/*// 11. Sticky add to cart
-// -----------------------------------------------------------------------------
-// show_sticky_add_to_cart = true. Make the bar feel like a floating surface
-// rather than a slab welded to the viewport edge.
+/*// 13. Sticky add to cart
 // =========================================================================== */
 body.template-product .sticky-product,
 body.template-product .sticky-add-to-cart {
-    backdrop-filter: saturate(1.4) blur(10px);
-    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    backdrop-filter: saturate(1.3) blur(12px);
+    -webkit-backdrop-filter: saturate(1.3) blur(12px);
     border-top: 1px solid var(--pp-line);
-    box-shadow: 0 -6px 24px -12px rgba(16, 16, 16, 0.28);
+    box-shadow: none;
 }
 
 body.template-product .sticky-product .button,
 body.template-product .sticky-add-to-cart .button {
     border-radius: var(--pp-radius-sm);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
 
-/*// 12. Below-the-fold sections
-// -----------------------------------------------------------------------------
-// Related products / reviews headings currently sit close to their grids. Give
-// them air and a consistent scale so the page has a steady beat down its length.
-// =========================================================================== */
-body.template-product .product-recommendations .title,
-body.template-product .product-recently-viewed .title {
-    letter-spacing: -0.01em;
-}
-
-body.template-product .product-recommendations .title .text,
-body.template-product .product-recently-viewed .title .text {
-    font-weight: 600;
-}
-
-
-/*// 13. Mobile refinements
-// -----------------------------------------------------------------------------
-// Tighten the measure, keep tap targets at/above 44px, and stop the trust panel
-// from eating the fold above the CTA.
+/*// 14. Mobile refinements
 // =========================================================================== */
 @media (max-width: 767px) {
-    body.template-product {
-        --pp-gap: 14px;
-    }
-
     body.template-product .productView-title {
-        font-size: 21px;
-        line-height: 1.25;
+        font-size: 22px;
+        line-height: 1.22;
     }
 
     body.template-product .productView-price .price.price--medium .price-item,
     body.template-product .productView-price .price.price--medium .price-item .money {
-        font-size: 20px;
+        font-size: 21px;
     }
 
-    body.template-product .halo-productView-right .productView-product > p {
-        padding: 14px 15px;
+    body.template-product .halo-productView-right .productView-product > p:first-of-type {
+        padding: 16px 0;
         font-size: 13px;
-        line-height: 1.85;
-        margin-bottom: 16px;
+        line-height: 1.95;
+        margin-bottom: 20px;
     }
 
     body.template-product .product-form__input:not(.product-form__swatch) .product-form__label .text {
         min-height: 44px;
-        padding: 0 14px;
+        padding: 0 16px;
     }
 
     body.template-product .productView-action .button,
     body.template-product .productView-buttons .product-form__submit {
         min-height: 52px;
-        font-size: 13px;
-    }
-
-    /* No hover lift on touch — it only ever fires as a sticky stuck state. */
-    body.template-product .productView-action .button:hover,
-    body.template-product .productView-buttons .product-form__submit:hover {
-        transform: none;
-        box-shadow: var(--pp-shadow-sm);
+        font-size: 11px;
+        letter-spacing: 0.14em;
     }
 
     body.template-product .productView-perks {
-        gap: 8px 18px;
+        gap: 10px 20px;
     }
 }
 
 
-/*// 14. Motion & focus accessibility
+/*// 15. Motion & focus accessibility
 // -----------------------------------------------------------------------------
 // The theme ships a horizontal-shaking ATC animation and fade-up scroll
-// triggers. Honour the OS reduced-motion preference, and make sure the keyboard
-// focus ring survives the restyling above.
+// triggers. Honour the OS reduced-motion preference, and keep the keyboard
+// focus ring alive through the restyling above.
 // =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
     body.template-product .productView-action .button,
@@ -536,11 +551,6 @@ body.template-product .product-recently-viewed .title .text {
         transition: none;
         animation: none;
     }
-
-    body.template-product .productView-action .button:hover,
-    body.template-product .productView-buttons .product-form__submit:hover {
-        transform: none;
-    }
 }
 
 body.template-product .product-form__radio:focus-visible + .product-form__label .text,
@@ -550,7 +560,8 @@ body.template-product .product-form__radio:focus-visible + .product-form__label 
 }
 
 body.template-product .productView-action .button:focus-visible,
-body.template-product .productView-tab .toggleLink:focus-visible {
+body.template-product .productView-tab .toggleLink:focus-visible,
+body.template-product .quantity__container:focus-within {
     outline: 2px solid var(--pp-ink);
     outline-offset: 2px;
 }
