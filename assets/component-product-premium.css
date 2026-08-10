@@ -129,39 +129,54 @@ body.template-product .productView-price + .volume-pricing-note {
 
 /*// 5. Assurance list (custom_liquid block)
 // -----------------------------------------------------------------------------
-// IMPORTANT — the block's HTML in templates/product.json ends with `<p>` rather
-// than `</p>`:
+// The block's HTML in templates/product.json used to be a single <p> with <br>
+// separators, closed with a stray `<p>` instead of `</p>`. The browser
+// auto-closed the first paragraph and emitted a SECOND, EMPTY one — which any
+// `> p` rule then painted as an empty panel.
 //
-//     ...Proudly designed in the USA<p>
+// Fixed at source rather than patched here: the block is now a real
+// <ul class="pp-assurance"> with one <li> per claim. That kills the phantom
+// element outright and gives this section a stable, intentional hook instead of
+// a positional `> p` selector that breaks the moment another block is added.
 //
-// The browser auto-closes the first paragraph and emits a SECOND, EMPTY <p>.
-// A bare `> p` selector therefore paints an empty panel below the real one.
-// Scoping to :first-of-type and hiding the rest removes it without touching the
-// template. Fixing the stray tag in the theme editor is still worth doing — this
-// rule just means the page is correct either way.
-//
-// Treatment: hairline rules, no fill. A grey box here reads as a system message;
-// rules read as an editorial spec block.
+// Treatment: hairline rules, no fill. A grey box reads as a system message;
+// rules read as an editorial spec block. Marks are drawn in CSS so they align
+// on their own optical column and can be tuned without touching content.
 // =========================================================================== */
-body.template-product .halo-productView-right .productView-product > p:first-of-type {
-    margin: 6px 0 26px;
-    padding: 20px 0;
+body.template-product .pp-assurance {
+    list-style: none;
+    margin: 8px 0 28px;
+    padding: 22px 0;
     border-top: 1px solid var(--pp-line);
     border-bottom: 1px solid var(--pp-line);
-    background: none;
+}
+
+body.template-product .pp-assurance li {
+    position: relative;
+    padding-left: 26px;
     font-size: 14px;
-    line-height: 2.15;
-    color: var(--pp-muted);
+    line-height: 1.5;
     letter-spacing: 0.012em;
+    color: var(--pp-muted);
 }
 
-/* Kill the empty paragraph the unclosed tag produces. */
-body.template-product .halo-productView-right .productView-product > p:not(:first-of-type) {
-    display: none;
+body.template-product .pp-assurance li + li {
+    margin-top: 13px;
 }
 
-body.template-product .halo-productView-right .productView-product > p:empty {
-    display: none;
+/* Hairline check mark, drawn rather than typed — keeps the glyph consistent
+   across fonts and lets it sit on its own optical column. */
+body.template-product .pp-assurance li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 6px;
+    width: 11px;
+    height: 6px;
+    border-left: 1.5px solid var(--pp-ink);
+    border-bottom: 1.5px solid var(--pp-ink);
+    transform: rotate(-45deg);
+    opacity: 0.75;
 }
 
 
@@ -400,26 +415,36 @@ body.template-product .productView-image-wrapper {
     overflow: hidden;
 }
 
-body.template-product .productView-thumbnail .productView-thumbnail-link {
+/* Scoped to .productView-nav — the gallery's own thumbnail rail. The sticky bar
+   and its mobile variant reuse .productView-thumbnail for their product image,
+   so an unscoped rule here dims the thumbnail inside the sticky cart too. */
+body.template-product .productView-nav .productView-thumbnail .productView-thumbnail-link {
     border-radius: var(--pp-radius-sm);
     border: 1px solid transparent;
     transition: border-color var(--pp-speed) var(--pp-ease);
 }
 
-body.template-product .productView-thumbnail .productView-thumbnail-link img {
+body.template-product .productView-nav .productView-thumbnail .productView-thumbnail-link img {
     opacity: 0.42;
     transition: opacity var(--pp-speed) var(--pp-ease);
 }
 
-body.template-product .productView-thumbnail:hover .productView-thumbnail-link img {
+body.template-product .productView-nav .productView-thumbnail:hover .productView-thumbnail-link img {
     opacity: 0.8;
 }
 
-body.template-product .productView-thumbnail.slick-current .productView-thumbnail-link {
+body.template-product .productView-nav .productView-thumbnail.slick-current .productView-thumbnail-link {
     border-color: var(--pp-line);
 }
 
-body.template-product .productView-thumbnail.slick-current .productView-thumbnail-link img {
+body.template-product .productView-nav .productView-thumbnail.slick-current .productView-thumbnail-link img {
+    opacity: 1;
+}
+
+/* Belt and braces: never dim the sticky cart's image, whatever the markup. */
+body.template-product .productView-stickyCart .productView-thumbnail .productView-thumbnail-link img,
+body.template-product .sticky-product-mobile .productView-thumbnail .productView-thumbnail-link img,
+body.template-product .sticky-image img {
     opacity: 1;
 }
 
@@ -480,21 +505,57 @@ body.template-product .productView-tab .tab-content p + p {
 
 
 /*// 13. Sticky add to cart
+// -----------------------------------------------------------------------------
+// The bar is .productView-stickyCart (NOT .sticky-product — that is the flex row
+// inside it). Base theme pins it `position: fixed; top: 1px`, so it floats over
+// the header and the in-page CTA as you scroll. The theme ships a clearance fix,
+// but only for .style-2, and it reads `calc(var(--header-height) + 5px)` — and
+// --header-height is never defined globally (only as 55px inside
+// component-toolbar.css). The calc is therefore invalid and drops, so even
+// .style-2 never actually clears the header. This config runs .style-1, which
+// has no such rule at all.
+//
+// Rather than depend on a variable the theme doesn't reliably set, the bar is
+// re-anchored to the bottom of the viewport: no header to collide with, no
+// magic numbers, and it matches the current convention for a persistent PDP
+// buy bar. Shadow direction is flipped to match.
 // =========================================================================== */
-body.template-product .sticky-product,
-body.template-product .sticky-add-to-cart {
+body.template-product .productView-stickyCart.style-1 {
+    top: auto;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: saturate(1.3) blur(12px);
     -webkit-backdrop-filter: saturate(1.3) blur(12px);
     border-top: 1px solid var(--pp-line);
-    box-shadow: none;
+    border-bottom: 0;
+    box-shadow: 0 -8px 28px -18px rgba(20, 20, 15, 0.4);
+    padding: 12px 0;
 }
 
-body.template-product .sticky-product .button,
-body.template-product .sticky-add-to-cart .button {
+body.template-product .productView-stickyCart .sticky-title {
+    color: var(--pp-ink);
+    letter-spacing: 0.005em;
+}
+
+body.template-product .productView-stickyCart .sticky-price,
+body.template-product .productView-stickyCart .money-subtotal {
+    font-variant-numeric: tabular-nums;
+    color: var(--pp-ink);
+}
+
+body.template-product .productView-stickyCart .product-form__submit,
+body.template-product .productView-stickyCart .button {
+    min-height: 48px;
     border-radius: var(--pp-radius-sm);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-size: 12px;
+    font-weight: 600;
+    box-shadow: none;
+}
+
+body.template-product .productView-stickyCart .quantity__container {
+    height: 48px;
 }
 
 
@@ -511,11 +572,18 @@ body.template-product .sticky-add-to-cart .button {
         font-size: 21px;
     }
 
-    body.template-product .halo-productView-right .productView-product > p:first-of-type {
-        padding: 16px 0;
+    body.template-product .pp-assurance {
+        padding: 18px 0;
+        margin-bottom: 22px;
+    }
+
+    body.template-product .pp-assurance li {
         font-size: 13px;
-        line-height: 1.95;
-        margin-bottom: 20px;
+        padding-left: 24px;
+    }
+
+    body.template-product .pp-assurance li + li {
+        margin-top: 11px;
     }
 
     body.template-product .product-form__input:not(.product-form__swatch) .product-form__label .text {
