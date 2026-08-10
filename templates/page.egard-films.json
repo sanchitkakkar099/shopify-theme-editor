@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "youtube_video_grid_MqcEmQ": {
+      "type": "youtube-video-grid",
+      "blocks": {
+        "html_jgGYQE": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe title=\"YouTube video player\" src=\"https://www.youtube.com/embed/H5XrTxzr2Wg\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_mUifKf": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe title=\"YouTube video player\" src=\"https://www.youtube.com/embed/5_JXZuXxc3M\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_Tr6g7Q": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/vXw6S5jHJ5w\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_Na6DKA": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/efeVzpMtt1Q\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_bXbVCR": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/x_HL0wiK4Zc\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_YKrhU4": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/i03JEOphu8A\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_ETQxY8": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/rPsuW47aH7s\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_aifaGj": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/04cFnVRjqbk\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_jW7PNL": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/O9nlPltaph8\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        }
+      },
+      "block_order": [
+        "html_jgGYQE",
+        "html_mUifKf",
+        "html_Tr6g7Q",
+        "html_Na6DKA",
+        "html_bXbVCR",
+        "html_YKrhU4",
+        "html_ETQxY8",
+        "html_aifaGj",
+        "html_jW7PNL"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {.data43 {width: 50%; float: left; } .row {display: inline-block; }}"
+      ],
+      "settings": {
+        "heading": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "youtube_video_grid_MqcEmQ"
+  ]
+}

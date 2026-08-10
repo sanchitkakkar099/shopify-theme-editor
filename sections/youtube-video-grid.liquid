@@ -1,0 +1,40 @@
+<div class="i_frem_sec container">
+  <h2 class="center_text center_heading">{{ page.title }}</h2>
+  <div class="row">
+    {% for block in section.blocks %}
+    <div class="data43">
+      {% if block.settings.custom_html != blank %}
+         {{ block.settings.custom_html }}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<style>
+  .i_frem_sec .center_text{margin: 25px;text-align: center;font-size: 35px;font-weight: 600;}
+  .i_frem_sec .data43{padding-top: 7.5px;padding-bottom: 7.5px;}
+</style>
+{% schema %}
+  {
+    "name": "youtube ifrem",
+    "settings": [
+      {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        }
+    ],
+    "blocks": [{
+      "type": "html",
+      "name": "html",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "custom_html",
+          "label": "Custom html"
+        }
+      ]
+    }],
+    "presets": [{"name": "youtube ifrem"}]
+  }
+{% endschema %}

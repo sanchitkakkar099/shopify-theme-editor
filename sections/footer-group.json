@@ -1,0 +1,184 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer Group",
+  "sections": {
+    "footer_05_QkKrbq": {
+      "type": "footer-05",
+      "blocks": {
+        "link_list_WGeLzJ": {
+          "type": "link_list",
+          "settings": {
+            "custom_width": "15",
+            "heading": "Shop",
+            "menu": "shop",
+            "mg_bottom": 0
+          }
+        },
+        "link_list_iNNADh": {
+          "type": "link_list",
+          "settings": {
+            "custom_width": "20",
+            "heading": "Egard",
+            "menu": "egard",
+            "mg_bottom": 0
+          }
+        },
+        "link_list_EgqFCh": {
+          "type": "link_list",
+          "settings": {
+            "custom_width": "20",
+            "heading": "Information",
+            "menu": "information",
+            "mg_bottom": 0
+          }
+        },
+        "link_list_6iLixY": {
+          "type": "link_list",
+          "settings": {
+            "custom_width": "20",
+            "heading": "Customer Service",
+            "menu": "customer-service",
+            "mg_bottom": 0
+          }
+        },
+        "text_kkPqFc": {
+          "type": "text",
+          "settings": {
+            "custom_width": "25",
+            "heading": "Be a part of our legacy",
+            "logo_margin_bottom": 28,
+            "subtext": "<p>Though we ask not to be bound nor gripped by the hand of time, we seek to measure it—not so that we may control it or defeat it, but rather, so that we may expose ourselves to its infinite scale.</p>",
+            "address_icon": "point_icon",
+            "show_address_icon": false,
+            "address_text": "",
+            "phone_icon": "message_icon",
+            "show_phone_icon": false,
+            "phone_text": "",
+            "email_icon": "envelope_icon",
+            "show_email_icon": false,
+            "email_text": "",
+            "icon_size": 16,
+            "icon_color": "",
+            "content_spacing": 1,
+            "mg_bottom": 0,
+            "social_heading": "",
+            "show_social": true,
+            "enable_bg_social": false,
+            "social_margin_top": 35,
+            "social_icon_width": 16,
+            "social_icon_padding": 10,
+            "social_icon_border_width": 1,
+            "social_icon_margin_right": 15,
+            "social_color": "#4b4b4b",
+            "social_border_color": "#c2c2c2",
+            "social_background_color": "#f5f5f5",
+            "social_background_color_gradient": "",
+            "social_color_hover": "#282828",
+            "social_border_color_hover": "#ffffff",
+            "social_background_color_hover": "#ffffff",
+            "social_background_color_gradient_hover": "",
+            "social_box_hover_color": "#ffffff"
+          }
+        },
+        "footer_bottom_6M46M7": {
+          "type": "footer_bottom",
+          "settings": {
+            "pdtop_footer_bottom": 10,
+            "pdbottom_footer_bottom": 10,
+            "border_top": true,
+            "footer_bottom_color": "#ffffff",
+            "border_top_color": "#2a2a2a",
+            "footer_bottom_bg": "#2a2a2a",
+            "footer_bottom_bg_gradient": "",
+            "show_copyright": true,
+            "enable_layout_grid": true,
+            "copyright_content": "<p>© 2024 Egard Watch Company | Powered by Shopify</p>",
+            "copyright_content_color": "#ffffff",
+            "show_payment": true,
+            "payment_margin_top": 0,
+            "heading_payment": "",
+            "payment_type": "custom",
+            "show_payment_visa": true,
+            "show_payment_master": true,
+            "show_payment_maestro": true,
+            "show_payment_american_express": true,
+            "show_payment_apple_pay": true,
+            "show_payment_bitcoin": false,
+            "show_payment_dankort": false,
+            "show_payment_diners_club": false,
+            "show_payment_discover": true,
+            "show_payment_paypal": true,
+            "show_payment_dogecoin": false,
+            "show_payment_dwolla": false,
+            "show_payment_forbrugsforeningen": false,
+            "show_payment_jcb": false,
+            "show_payment_litecoin": false,
+            "show_payment_afterpay": true,
+            "show_payment_google_pay": true,
+            "show_payment_ideal": false,
+            "show_payment_klarna": true,
+            "show_payment_klarna-pay-later": false,
+            "show_payment_shopify_pay": true,
+            "show_payment_sofort": false
+          }
+        }
+      },
+      "block_order": [
+        "link_list_WGeLzJ",
+        "link_list_iNNADh",
+        "link_list_EgqFCh",
+        "link_list_6iLixY",
+        "text_kkPqFc",
+        "footer_bottom_6M46M7"
+      ],
+      "custom_css": [
+        ".copyright__content p{font-size: 12px;"
+      ],
+      "settings": {
+        "container": "1170",
+        "padding_full_width": 0,
+        "type_footer_heading": "font_1",
+        "type_footer_heading_font_size": 16,
+        "type_footer_heading_font_weight": "700",
+        "type_footer_heading_font_style": "normal",
+        "type_footer_heading_text_transform": "uppercase",
+        "type_footer_heading_line_height": 26,
+        "type_footer_heading_letter_spacing": ".02em",
+        "type_footer_link": "font_1",
+        "type_footer_link_font_size": 14,
+        "type_footer_link_font_weight": "400",
+        "type_footer_link_text_transform": "capitalize",
+        "type_footer_link_line_height": 34,
+        "type_footer_link_letter_spacing": ".02em",
+        "enable_border_footer_top": false,
+        "border_footer_top_color": "#282828",
+        "pdtop_footer_top": 50,
+        "pdbottom_footer_top": 50,
+        "footer_top_bg": "#000000",
+        "footer_top_bg_gradient": "",
+        "show_footer_top_bg_img": false,
+        "footer_top_bg_position_x": "center",
+        "footer_top_bg_position_y": "center",
+        "footer_top_bg_repeat": "no-repeat",
+        "footer_top_bg_attachment": "fixed",
+        "footer_top_bg_size": "contain",
+        "footer_top_text_align": "left",
+        "footer_top_title_color": "#ffffff",
+        "footer_top_color_link": "#ffffff",
+        "footer_top_color_link_hover": "#f5f5f5"
+      }
+    }
+  },
+  "order": [
+    "footer_05_QkKrbq"
+  ]
+}

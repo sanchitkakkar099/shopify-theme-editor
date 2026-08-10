@@ -1,0 +1,12 @@
+{% if template contains 'collection' %}
+  <meta name="keywords" content="{{ collection.metafields.custom.collection_keyword }}">
+{% endif %} 
+
+
+{% if template contains 'product' %}
+{% if product.metafields.custom.product_keyword != blank %}
+<meta name="keywords" content="{{ product.metafields.custom.product_keyword }}">
+{% else %}
+ <meta name="keywords" content="luxury watches,luxury watches for men,best watch brands,luxury watches for women,best watch brands for men,top watch brands,best luxury watches for men,good watch brands for men,watch stores,luxury watches brands,watches brands,expensive watches,egard watches, {{ product.title }}" /> 
+{% endif %}
+{% endif %}

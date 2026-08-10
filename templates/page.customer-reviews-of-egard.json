@@ -1,0 +1,203 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "youtube_video_grid_Uc44Cz": {
+      "type": "youtube-video-grid",
+      "blocks": {
+        "html_jgGYQE": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe title=\"YouTube video player\" src=\"https://www.youtube.com/embed/I_hyE9CrJtA\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_mUifKf": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe title=\"YouTube video player\" src=\"https://www.youtube.com/embed/Q4SEZvTHS5k\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_Tr6g7Q": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/f6SDPJkkLIE\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_Na6DKA": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/sPnOOV6lrUE\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_bXbVCR": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/HbMRVzBXwtg\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_YKrhU4": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/cyiLjv9RfBI\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_ETQxY8": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/3G3rArN-a3Q\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_aifaGj": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/RbvcI7ijn5E\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_jW7PNL": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/naoG-z6Vq2Q\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_4CLXDR": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/HrnbqBzXn7g\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_AyeAjF": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/bpIbd18bVko\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_wULDtr": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/1LJHFmb7U58\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_4xQFxz": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/RaEwr_CQSy8\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_QJ6j4w": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/At6-zX86wF0\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_8ehYWn": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/NfJB7dxbA40\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_FDbTY7": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/NrkP6cXnt_U\" height=\"315\" width=\"560\" allow=\"autoplay; encrypted-media\" allowfullscreen=\"\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_nHek7k": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/EfCnKk-Jn8I?rel=0\" height=\"315\" width=\"560\" allow=\"autoplay; encrypted-media\" allowfullscreen=\"\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_BpxJ8a": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/uTJYyFUq85A?rel=0\" height=\"315\" width=\"560\" allow=\"autoplay; encrypted-media\" allowfullscreen=\"\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_FqKMkr": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/naNTgSqYEWU\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_yicYGx": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/ItQovxB85-0\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_fUCpA9": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/abjGOuRDZ4U?rel=0\" height=\"315\" width=\"560\" allow=\"autoplay; encrypted-media\" allowfullscreen=\"\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_wnecBL": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/o2BoPjXuRfY?rel=0\" height=\"315\" width=\"560\" allow=\"autoplay; encrypted-media\" allowfullscreen=\"\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_XJHcVE": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/-9pMiWocosM\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe>"
+          }
+        },
+        "html_hJ8Ycr": {
+          "type": "html",
+          "settings": {
+            "custom_html": "<iframe src=\"https://www.youtube.com/embed/_TQGBUpLLf0?rel=0\" height=\"315\" width=\"560\" allow=\"autoplay; encrypted-media\" allowfullscreen=\"\" frameborder=\"0\"></iframe>"
+          }
+        }
+      },
+      "block_order": [
+        "html_jgGYQE",
+        "html_mUifKf",
+        "html_Tr6g7Q",
+        "html_Na6DKA",
+        "html_bXbVCR",
+        "html_YKrhU4",
+        "html_ETQxY8",
+        "html_aifaGj",
+        "html_jW7PNL",
+        "html_4CLXDR",
+        "html_AyeAjF",
+        "html_wULDtr",
+        "html_4xQFxz",
+        "html_QJ6j4w",
+        "html_8ehYWn",
+        "html_FDbTY7",
+        "html_nHek7k",
+        "html_BpxJ8a",
+        "html_FqKMkr",
+        "html_yicYGx",
+        "html_fUCpA9",
+        "html_wnecBL",
+        "html_XJHcVE",
+        "html_hJ8Ycr"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {.data43 {width: 50%; float: left; } .row {display: inline-block; }}"
+      ],
+      "settings": {
+        "heading": "Egard Films"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "youtube_video_grid_Uc44Cz"
+  ]
+}
