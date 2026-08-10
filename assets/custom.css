@@ -26,3 +26,7 @@
     font-size: 24px;
    
 }
+.productView-price .price.price--medium .price-item .money {
+    font-size: 20px;
+    line-height: 1.2;
+}
