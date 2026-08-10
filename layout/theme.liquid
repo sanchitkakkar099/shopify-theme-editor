@@ -197,6 +197,221 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 shopify-payment-terms{
 margin-bottom:12px;
 }
+/* ========================================
+   THE CONCEPT - PREMIUM REDESIGN
+======================================== */
+
+.hypervisual__content-block--column-two-up {
+  background: #f6f4ef;
+  overflow: hidden;
+}
+
+.hypervisual__content-block--column-two-up .hypervisual__columns-wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 620px;
+}
+
+
+/* ---------- TEXT SIDE ---------- */
+
+.hypervisual__content-block--column-two-up 
+.hypervisual__column1-block {
+  width: 48% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f4ef !important;
+  padding: 70px 7% !important;
+  box-sizing: border-box;
+}
+
+.hypervisual__content-block--column-two-up 
+.hypervisual__column1-block .hypervisual__text-wrapper {
+  max-width: 600px;
+  width: 100%;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+
+/* Heading */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one {
+  position: relative;
+  margin-bottom: 32px;
+  padding-bottom: 22px;
+  text-align: left !important;
+}
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one > div {
+  font-size: 38px !important;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: #171717 !important;
+  text-transform: uppercase;
+}
+
+
+/* Gold divider under heading */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_one::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 54px;
+  height: 1px;
+  background: #b4975a;
+}
+
+
+/* Paragraph */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_two {
+  text-align: left !important;
+}
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_two > div {
+  max-width: 555px;
+  font-size: 17px !important;
+  line-height: 1.9 !important;
+  font-weight: 400;
+  letter-spacing: 0.15px;
+  color: #55514c !important;
+}
+
+
+/* Italic Tzolk'in */
+
+.hypervisual__content-block--column-two-up
+.hypervisual__text_line_two em {
+  color: #222;
+  font-weight: 500;
+}
+
+
+/* ---------- IMAGE SIDE ---------- */
+
+.hypervisual__content-block--column-two-up 
+.hypervisual__column2-block {
+  width: 52% !important;
+  overflow: hidden;
+  min-height: 620px;
+}
+
+.hypervisual__content-block--column-two-up 
+.hypervisual__column2-block img {
+  width: 100%;
+  height: 100%;
+  min-height: 620px;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform 0.8s ease;
+}
+
+
+/* Very subtle luxury hover */
+
+.hypervisual__content-block--column-two-up:hover
+.hypervisual__column2-block img {
+  transform: scale(1.025);
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media screen and (max-width: 1100px) {
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__column1-block {
+    padding: 55px 5% !important;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_one > div {
+    font-size: 32px !important;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_two > div {
+    font-size: 16px !important;
+    line-height: 1.75 !important;
+  }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media screen and (max-width: 767px) {
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__columns-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__column2-block {
+    width: 100% !important;
+    min-height: auto;
+    order: 1;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__column2-block img {
+    width: 100%;
+    height: 420px;
+    min-height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__column1-block {
+    width: 100% !important;
+    order: 2;
+    padding: 45px 24px 50px !important;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__column1-block .hypervisual__text-wrapper {
+    max-width: 100%;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_one {
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_one > div {
+    font-size: 27px !important;
+    letter-spacing: 2.5px;
+  }
+
+  .hypervisual__content-block--column-two-up
+  .hypervisual__text_line_two > div {
+    font-size: 15px !important;
+    line-height: 1.75 !important;
+  }
+
+}
         </style>
         </body>
 </html>
