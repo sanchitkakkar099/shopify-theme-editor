@@ -24,6 +24,7 @@
 }
 .productView-title {
     font-size: 24px !important;
+    margin-bottom:10px !important;
    
 }
 .productView-price .price.price--medium .price-item .money {
