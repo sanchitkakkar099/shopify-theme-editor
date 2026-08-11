@@ -167,10 +167,28 @@ body.template-product .productView-price + .volume-pricing-note {
 // rules read as an editorial spec block.
 // =========================================================================== */
 
-/* --- Shared frame, both shapes --- */
+/* --- Shared frame, both shapes ---
+//
+// VERTICAL RHYTHM — the margins below are not arbitrary, they are measured.
+//
+// The block previously ran `margin: 8px 0 28px`, which looked symmetrical in
+// source but was not on screen. Measured in the live buy box:
+//
+//   price bottom -> top rule      =  8px   (margin-top)
+//   bottom rule  -> quantity top  = 50px   (28px margin + a 12px empty
+//                                           variant-description block + 10px)
+//
+// The empty block between this and the quantity selector is what breaks the
+// symmetry, and it is not visible, so the imbalance reads as a mistake rather
+// than as spacing. Compensating for it here — 28px above, 8px below — lands
+// both optical gaps at roughly 28-30px.
+//
+// If the empty block ever collapses (a product with a real variant description
+// fills it, or the block is removed), the lower gap tightens to ~18px. Re-measure
+// rather than assuming these numbers still hold. */
 body.template-product .pp-assurance,
 body.template-product .halo-productView-right .productView-product > p:first-of-type {
-    margin: 8px 0 28px;
+    margin: 28px 0 8px;
     padding: 22px 0;
     border-top: 1px solid var(--pp-line);
     border-bottom: 1px solid var(--pp-line);
@@ -470,42 +488,33 @@ body.template-product .productView-image-wrapper {
 // Scoping to .productView-thumbnail-wrapper keeps the sticky cart out of range
 // (it reuses .productView-thumbnail for its own product image).
 //
-// Thumbnails ship with no border at all, so they read as images floating in
-// space. A hairline gives each one an edge; the current slide gets an ink
-// border plus a 1px ring so the active state is unmistakable. */
-body.template-product .productView-thumbnail-wrapper .productView-thumbnail {
-    padding: 0 8px;
-}
-
-/* Border only — no fill. Thumbnails inherit the page ground like the main
-   gallery does, so nothing sits behind the imagery anywhere in this section. */
+// BORDER TREATMENT ONLY — STRICTLY ZERO LAYOUT IMPACT.
+//
+// An earlier revision also set `padding: 0 8px` on .productView-thumbnail
+// (overriding the theme's 10px) and pushed image opacity to 0.55/0.85/1. Both
+// removed: they changed thumbnail spacing and appearance across every product
+// using this gallery, not just this one.
+//
+// The ring is drawn with an INSET box-shadow rather than a border, deliberately.
+// A real border adds to the box and would shift the rail by 2px per thumbnail —
+// which is what disturbed positioning on other products. An inset shadow paints
+// inside the existing box, so size, height, position and spacing are all
+// untouched and the theme's own slick metrics still hold.
+//
+// Everything else here is the theme's: padding, dimensions, aspect ratio, and
+// its own active-slide opacity behaviour. */
 body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link {
-    border: 1px solid var(--pp-line);
     border-radius: var(--pp-radius-sm);
-    transition: border-color var(--pp-speed) var(--pp-ease),
-                box-shadow var(--pp-speed) var(--pp-ease);
-}
-
-body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link img {
-    opacity: 0.55;
-    transition: opacity var(--pp-speed) var(--pp-ease);
+    box-shadow: inset 0 0 0 1px var(--pp-line);
+    transition: box-shadow var(--pp-speed) var(--pp-ease);
 }
 
 body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link:hover {
-    border-color: rgba(20, 20, 15, 0.4);
-}
-
-body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link:hover img {
-    opacity: 0.85;
+    box-shadow: inset 0 0 0 1px rgba(20, 20, 15, 0.4);
 }
 
 body.template-product .productView-thumbnail-wrapper .slick-current .productView-thumbnail-link {
-    border-color: var(--pp-ink);
-    box-shadow: 0 0 0 1px var(--pp-ink);
-}
-
-body.template-product .productView-thumbnail-wrapper .slick-current .productView-thumbnail-link img {
-    opacity: 1;
+    box-shadow: inset 0 0 0 2px var(--pp-ink);
 }
 
 /* Belt and braces: never dim the sticky cart's image, whatever the markup. */
@@ -814,44 +823,18 @@ body.template-product #looxReviews {
 }
 
 
-/*// 17b. Video blocks
+/*// 17b. Video blocks — REVERTED, left full width
 // -----------------------------------------------------------------------------
-// Both product videos live inside the Hypervisual section at
-// .hypervisual__content-block--video. They render full-bleed 1280x720, edge to
-// edge, with no containment or framing — which is why they read as raw embeds
-// dropped into the page rather than part of it.
+// Both product videos are left exactly as Hypervisual renders them: full-bleed,
+// edge to edge, at their native 16:9.
 //
-// This targets only the app's outer block and its video wrapper, never its
-// internals, so it is stable against Hypervisual template changes. The 16:9
-// ratio box the app provides is already correct and is left alone.
+// A previous revision pulled them into a 1160px measure with a hairline frame,
+// radius and drop shadow. Reverted at the owner's request — the full-bleed
+// treatment was the intended presentation, and a framed video inside a
+// full-width app section reads as inconsistent with the sections around it.
 //
-// Treatment: pull them in to the page measure, add a hairline frame and a deep
-// soft shadow, and set the well to ink so letterboxing reads as intentional.
+// Do not re-add width, padding or framing here.
 // =========================================================================== */
-body.template-product .hypervisual__content-block--video {
-    max-width: 1160px;
-    margin: 72px auto;
-    padding: 0 20px;
-}
-
-body.template-product .hypervisual__content-block--video .hypervisual__util-video-wrapper {
-    overflow: hidden;
-    border-radius: 3px;
-    border: 1px solid var(--pp-line);
-    background: var(--pp-ink);
-    box-shadow: 0 24px 60px -30px rgba(20, 20, 15, 0.45);
-}
-
-body.template-product .hypervisual__content-block--video iframe {
-    display: block;
-}
-
-@media (max-width: 767px) {
-    body.template-product .hypervisual__content-block--video {
-        margin: 40px auto;
-        padding: 0 16px;
-    }
-}
 
 
 /*// 18. Mobile refinements
@@ -867,10 +850,13 @@ body.template-product .hypervisual__content-block--video iframe {
         font-size: 21px;
     }
 
+    /* Same reasoning as the desktop rule — weight above, not below, so the
+       empty variant-description block does not skew the lower gap. */
     body.template-product .pp-assurance,
     body.template-product .halo-productView-right .productView-product > p:first-of-type {
         padding: 18px 0;
-        margin-bottom: 22px;
+        margin-top: 22px;
+        margin-bottom: 6px;
     }
 
     body.template-product .halo-productView-right .productView-product > p:first-of-type {
@@ -1051,67 +1037,21 @@ body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual
 }
 
 
-/*// 22. Video headings
+/*// 22. Video headings — REMOVED
 // -----------------------------------------------------------------------------
-// Neither video had any heading, so both arrived with no framing or context.
-// Headings are injected with ::before because this is app-generated content —
-// see the accessibility trade-off noted in section 17; the same applies here.
+// A previous revision injected "See the Quantus in Motion" with a caption above
+// the first video, and "Watch the Expert Review" above the second, using
+// ::before/::after.
+//
+// Removed at the owner's request: the default layout already reads correctly,
+// and the existing "Video review by Watch Addict" line is the section's own
+// label. Injected headings were also the weakest part of this stylesheet —
+// generated content never enters the accessibility tree, so they were never
+// real headings to begin with.
+//
+// If headings are wanted here later, add them as Custom Liquid sections in the
+// theme editor, where they can be genuine markup.
 // =========================================================================== */
-body.template-product #hypervisual__version-original > div:nth-child(1)::before {
-    content: "See the Quantus in Motion";
-    display: block;
-    text-align: center;
-    font-size: clamp(20px, 1.1vw + 12px, 27px);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--pp-ink);
-    margin: 0 auto 10px;
-}
-
-body.template-product #hypervisual__version-original > div:nth-child(1)::after {
-    content: "A closer look at the dual balance movement";
-    display: block;
-    text-align: center;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--pp-faint);
-    margin-top: 16px;
-}
-
-/* Expert review: the existing "Video review by Watch Addict" line becomes the
-   supporting caption under an injected section heading. */
-body.template-product #hypervisual__version-original > div:nth-child(6) {
-    max-width: 1160px;
-    margin: 56px auto 0;
-    padding: 0 20px;
-    text-align: center;
-}
-
-body.template-product #hypervisual__version-original > div:nth-child(6)::before {
-    content: "Watch the Expert Review";
-    display: block;
-    font-size: clamp(20px, 1.1vw + 12px, 27px);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--pp-ink);
-    margin-bottom: 8px;
-}
-
-body.template-product #hypervisual__version-original > div:nth-child(6) .hypervisual__text-wrapper {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-body.template-product #hypervisual__version-original > div:nth-child(6) [class*="hypervisual__text"] {
-    font-size: 13px !important;
-    letter-spacing: 0.04em;
-    color: var(--pp-faint) !important;
-}
-
-body.template-product #hypervisual__version-original > div:nth-child(7) {
-    margin-top: 22px;
-    margin-bottom: 84px;
-}
 
 
 /*// 23. Reviews heading copy
