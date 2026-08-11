@@ -986,11 +986,10 @@ body.template-product .quantity__container:focus-within {
 // Hypervisual and the spacer count changes, revisit the :first-child/:last-child
 // rules below — the cards themselves key off the grid, not position.
 // =========================================================================== */
-body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large)) {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 8px 20px 76px;
-}
+/* NO width or padding override here either. The trust block is also a
+   left-right columns section, so it keeps Hypervisual's own layout for the
+   same reasons as the story sections above. Only the statements inside the
+   text column are restyled into cards. */
 
 /* LAYOUT DECISION — cards stack, they do not sit three-across.
 
