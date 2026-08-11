@@ -35,7 +35,8 @@
 //   14. Section rhythm
 //   15. Section headings ("Related Products")
 //   16. Product cards
-//   17. Reviews & app-built content (limited surface — see notes)
+//   17. Reviews section + injected heading
+//   17b. Video blocks (Hypervisual)
 //   --- responsive & a11y ---
 //   18. Mobile refinements
 //   19. Motion & focus accessibility
@@ -457,29 +458,52 @@ body.template-product .productView-image-wrapper {
     overflow: hidden;
 }
 
-/* Scoped to .productView-nav — the gallery's own thumbnail rail. The sticky bar
-   and its mobile variant reuse .productView-thumbnail for their product image,
-   so an unscoped rule here dims the thumbnail inside the sticky cart too. */
-body.template-product .productView-nav .productView-thumbnail .productView-thumbnail-link {
-    border-radius: var(--pp-radius-sm);
-    border: 1px solid transparent;
-    transition: border-color var(--pp-speed) var(--pp-ease);
+/* Thumbnail rail.
+//
+// CORRECTED SELECTOR — an earlier revision scoped these to `.productView-nav`,
+// which does exist on the page but is NOT the thumbnail rail, so every rule in
+// this block was silently dead. The rail is:
+//
+//   .productView-thumbnail-wrapper > .productView-for > .slick-list
+//     > .slick-track > .productView-thumbnail > a.productView-thumbnail-link
+//
+// Scoping to .productView-thumbnail-wrapper keeps the sticky cart out of range
+// (it reuses .productView-thumbnail for its own product image).
+//
+// Thumbnails ship with no border at all, so they read as images floating in
+// space. A hairline gives each one an edge; the current slide gets an ink
+// border plus a 1px ring so the active state is unmistakable. */
+body.template-product .productView-thumbnail-wrapper .productView-thumbnail {
+    padding: 0 8px;
 }
 
-body.template-product .productView-nav .productView-thumbnail .productView-thumbnail-link img {
-    opacity: 0.42;
+body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link {
+    border: 1px solid var(--pp-line);
+    border-radius: var(--pp-radius-sm);
+    background: #fff;
+    transition: border-color var(--pp-speed) var(--pp-ease),
+                box-shadow var(--pp-speed) var(--pp-ease);
+}
+
+body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link img {
+    opacity: 0.55;
     transition: opacity var(--pp-speed) var(--pp-ease);
 }
 
-body.template-product .productView-nav .productView-thumbnail:hover .productView-thumbnail-link img {
-    opacity: 0.8;
+body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link:hover {
+    border-color: rgba(20, 20, 15, 0.4);
 }
 
-body.template-product .productView-nav .productView-thumbnail.slick-current .productView-thumbnail-link {
-    border-color: var(--pp-line);
+body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link:hover img {
+    opacity: 0.85;
 }
 
-body.template-product .productView-nav .productView-thumbnail.slick-current .productView-thumbnail-link img {
+body.template-product .productView-thumbnail-wrapper .slick-current .productView-thumbnail-link {
+    border-color: var(--pp-ink);
+    box-shadow: 0 0 0 1px var(--pp-ink);
+}
+
+body.template-product .productView-thumbnail-wrapper .slick-current .productView-thumbnail-link img {
     opacity: 1;
 }
 
@@ -744,37 +768,85 @@ body.template-product .product-item .card-price .price--on-sale .price-item--reg
 }
 
 
-/*// 17. Reviews & app-built content
+/*// 17. Reviews section + heading
 // -----------------------------------------------------------------------------
-// SCOPE LIMIT — worth knowing before anyone tries to extend this.
+// The reviews block had no heading at all — it simply began, with no label to
+// tell you what you were looking at.
 //
-// Loox renders its reviews into an <iframe>. Styles cannot cross that boundary,
-// so nothing inside the widget (star colour, review cards, typography) is
-// reachable from this stylesheet at all. It has to be themed in the Loox app
-// settings. The same applies to Hypervisual, which injects its own stylesheets
-// and markup; restyling its internals from here would break on their next
-// template change.
+// The heading is injected with ::before rather than added to markup. The block
+// is an app section whose settings live in templates/product.json, which the
+// Shopify sync regenerates, so a markup heading there would not survive.
 //
-// What IS reachable is the frame around each: the space they occupy and the
-// rules that separate them from the sections above and below. That is all this
-// section attempts, deliberately.
+// TRADE-OFF, stated plainly: generated content is not a real <h2>. It is not in
+// the accessibility tree as a heading and screen-reader users get no landmark
+// for this section. For a decorative label that is a fair trade; if you want a
+// genuine heading, the correct fix is a Custom Liquid section added above the
+// reviews block in the theme editor — see the note in the handover.
+//
+// Loox itself renders into an <iframe>. Nothing inside it (star colour, review
+// cards, typography) is reachable from any stylesheet — that must be themed in
+// the Loox app settings.
 // =========================================================================== */
-body.template-product .shopify-app-block:has(#looxReviews),
-body.template-product #looxReviews {
-    display: block;
+body.template-product .shopify-section:has(#looxReviews) {
+    padding-top: 64px;
+    padding-bottom: 32px;
+    border-top: 1px solid var(--pp-line);
 }
 
-/* Give the reviews block the same chapter break as the other sections.
-   The id is section-instance specific, so target the widget itself and walk up
-   with :has() where supported, falling back to padding on the widget. */
+body.template-product .shopify-section:has(#looxReviews)::before {
+    content: "Customer Reviews";
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--pp-ink);
+    margin-bottom: 30px;
+}
+
 body.template-product #looxReviews {
     padding-top: 8px;
 }
 
-body.template-product .shopify-section:has(#looxReviews) {
-    padding-top: 60px;
-    padding-bottom: 28px;
-    border-top: 1px solid var(--pp-line);
+
+/*// 17b. Video blocks
+// -----------------------------------------------------------------------------
+// Both product videos live inside the Hypervisual section at
+// .hypervisual__content-block--video. They render full-bleed 1280x720, edge to
+// edge, with no containment or framing — which is why they read as raw embeds
+// dropped into the page rather than part of it.
+//
+// This targets only the app's outer block and its video wrapper, never its
+// internals, so it is stable against Hypervisual template changes. The 16:9
+// ratio box the app provides is already correct and is left alone.
+//
+// Treatment: pull them in to the page measure, add a hairline frame and a deep
+// soft shadow, and set the well to ink so letterboxing reads as intentional.
+// =========================================================================== */
+body.template-product .hypervisual__content-block--video {
+    max-width: 1160px;
+    margin: 72px auto;
+    padding: 0 20px;
+}
+
+body.template-product .hypervisual__content-block--video .hypervisual__util-video-wrapper {
+    overflow: hidden;
+    border-radius: 3px;
+    border: 1px solid var(--pp-line);
+    background: var(--pp-ink);
+    box-shadow: 0 24px 60px -30px rgba(20, 20, 15, 0.45);
+}
+
+body.template-product .hypervisual__content-block--video iframe {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    body.template-product .hypervisual__content-block--video {
+        margin: 40px auto;
+        padding: 0 16px;
+    }
 }
 
 
