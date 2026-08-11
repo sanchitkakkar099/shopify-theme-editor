@@ -477,10 +477,11 @@ body.template-product .productView-thumbnail-wrapper .productView-thumbnail {
     padding: 0 8px;
 }
 
+/* Border only — no fill. Thumbnails inherit the page ground like the main
+   gallery does, so nothing sits behind the imagery anywhere in this section. */
 body.template-product .productView-thumbnail-wrapper .productView-thumbnail-link {
     border: 1px solid var(--pp-line);
     border-radius: var(--pp-radius-sm);
-    background: #fff;
     transition: border-color var(--pp-speed) var(--pp-ease),
                 box-shadow var(--pp-speed) var(--pp-ease);
 }
@@ -719,13 +720,16 @@ body.template-product .halo-block-header .title .text {
 
 /*// 16. Product cards
 // -----------------------------------------------------------------------------
-// Cards sit on white with no containment, so the grid reads as loose text under
-// floating images. A soft media panel gives each card an edge, and a contained
-// image scale on hover supplies the interaction the grid currently lacks.
+// A contained image scale on hover supplies the interaction the grid lacks.
+//
+// NO BACKGROUND PANEL. An earlier revision filled the media wrapper with a soft
+// grey. Removed: much of this catalogue is shot on white, and a tinted panel
+// behind a white-background photo makes the cut-out edge visible instead of
+// hiding it — the product ends up looking pasted onto a swatch. Product imagery
+// carries its own ground; it does not need one added.
 // =========================================================================== */
 body.template-product .product-item .card-product__wrapper {
     overflow: hidden;
-    background: #f7f7f5;
     border-radius: var(--pp-radius);
 }
 
@@ -955,93 +959,21 @@ body.template-product .quantity__container:focus-within {
    ========================================================================== */
 
 
-/*// 20. Story sections — shared system
+/*// 20. Story sections — REVERTED, intentionally left unstyled
+// -----------------------------------------------------------------------------
+// THE CONCEPT / THE CASEBACK / CURVED SAPPHIRE CRYSTAL are left exactly as the
+// Hypervisual app renders them.
+//
+// A previous revision imposed a design system on them: a 1240px cap, 76px
+// padding, a 56px flex gutter, forced column alternation, a uniform 4:5 image
+// ratio and a 56ch measure on the body copy. That was reverted at the owner's
+// request — those sections were already composed as intended, and overriding an
+// app-built layout from an external stylesheet is fragile besides: it fights
+// Hypervisual's own responsive rules and breaks whenever their template changes.
+//
+// Do not re-add layout rules here. If these sections need to change, change them
+// in Hypervisual, where the layout actually lives.
 // =========================================================================== */
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large) {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 76px 20px;
-}
-
-/* Alternate the image side. .hypervisual__columns-wrapper is already
-   display:flex/row, so reversing the middle section gives image-left,
-   image-right, image-left down the page. */
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-    .hypervisual__columns-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 56px;
-}
-
-body.template-product #hypervisual__version-original > div:nth-child(3)
-    .hypervisual__columns-wrapper {
-    flex-direction: row-reverse;
-}
-
-/* Consistent image ratio across all three, regardless of source aspect. */
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-    .hypervisual__content-block--image img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 3px;
-    display: block;
-}
-
-/* Section heading. An eyebrow rule sits above it via ::before so each story
-   reads as a titled chapter rather than a floating caps line. */
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-    .hypervisual__text-large {
-    position: relative;
-    font-size: clamp(22px, 1.2vw + 12px, 30px) !important;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
-    color: var(--pp-ink) !important;
-    padding-top: 22px;
-    margin-bottom: 18px;
-}
-
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-    .hypervisual__text-large::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 46px;
-    height: 2px;
-    background: var(--pp-ink);
-}
-
-/* Body copy: readable measure and colour, not the app's default #333 at full
-   column width. */
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-    .hypervisual__text-small {
-    font-size: 15px !important;
-    line-height: 1.85 !important;
-    color: var(--pp-muted) !important;
-    max-width: 56ch;
-}
-
-body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-    .hypervisual__text-wrapper {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-@media (max-width: 900px) {
-    body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large) {
-        padding: 44px 16px;
-    }
-
-    body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
-        .hypervisual__columns-wrapper,
-    body.template-product #hypervisual__version-original > div:nth-child(3)
-        .hypervisual__columns-wrapper {
-        flex-direction: column;
-        gap: 28px;
-    }
-}
 
 
 /*// 21. Trust section — three cards
@@ -1197,15 +1129,18 @@ body.template-product .shopify-section:has(#looxReviews)::before {
 }
 
 
-/*// 24. Main image well
+/*// 24. Gallery — REMOVED, no background well
 // -----------------------------------------------------------------------------
-// The gallery sits directly on white, so a white-background product shot has no
-// edge and the watch does not read as a subject. A faint well gives it one.
+// An earlier revision put a faint gradient well behind .productView-images.
+// Removed, and deliberately not replaced.
+//
+// The reasoning it was added on was wrong: several images in this gallery are
+// shot on white, and a tinted panel behind a white-background photo does not
+// give the subject an edge — it reveals the photo's own rectangle as a visible
+// lighter block, which reads as a mistake rather than a frame.
+//
+// The gallery keeps its own edge from the thumbnail borders in section 11.
 // =========================================================================== */
-body.template-product .productView-images {
-    background: linear-gradient(180deg, #fafaf8 0%, #f4f4f1 100%);
-    border-radius: 4px;
-}
 
 
 /*// 25. Buy box hierarchy
