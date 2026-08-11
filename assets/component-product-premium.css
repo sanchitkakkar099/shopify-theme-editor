@@ -930,3 +930,286 @@ body.template-product .quantity__container:focus-within {
     outline: 2px solid var(--pp-ink);
     outline-offset: 2px;
 }
+
+
+/* ============================================================================
+   20-26. STORY, TRUST & VIDEO SECTIONS  (Hypervisual block)
+   ----------------------------------------------------------------------------
+   Structure, confirmed against the rendered page. Direct children of
+   #hypervisual__version-original, in order:
+
+     1  video     -> product film
+     2  columns   -> THE CONCEPT                  (has .hypervisual__text-large)
+     3  columns   -> THE CASEBACK                 (has .hypervisual__text-large)
+     4  columns   -> CURVED SAPPHIRE CRYSTAL      (has .hypervisual__text-large)
+     5  columns   -> trust statements             (no .hypervisual__text-large)
+     6  text      -> "Video review by Watch Addict"
+     7  video     -> expert review film
+
+   The three story sections are selected by :has(.hypervisual__text-large)
+   rather than by position, so inserting a block above them will not break the
+   styling. The trust block is the columns block WITHOUT that heading class.
+
+   Only Hypervisual's own wrapper classes are targeted — never its inline
+   styles or generated ids — so this survives their template updates.
+   ========================================================================== */
+
+
+/*// 20. Story sections — shared system
+// =========================================================================== */
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large) {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 76px 20px;
+}
+
+/* Alternate the image side. .hypervisual__columns-wrapper is already
+   display:flex/row, so reversing the middle section gives image-left,
+   image-right, image-left down the page. */
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+    .hypervisual__columns-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+}
+
+body.template-product #hypervisual__version-original > div:nth-child(3)
+    .hypervisual__columns-wrapper {
+    flex-direction: row-reverse;
+}
+
+/* Consistent image ratio across all three, regardless of source aspect. */
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+    .hypervisual__content-block--image img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+}
+
+/* Section heading. An eyebrow rule sits above it via ::before so each story
+   reads as a titled chapter rather than a floating caps line. */
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+    .hypervisual__text-large {
+    position: relative;
+    font-size: clamp(22px, 1.2vw + 12px, 30px) !important;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: var(--pp-ink) !important;
+    padding-top: 22px;
+    margin-bottom: 18px;
+}
+
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+    .hypervisual__text-large::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 46px;
+    height: 2px;
+    background: var(--pp-ink);
+}
+
+/* Body copy: readable measure and colour, not the app's default #333 at full
+   column width. */
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+    .hypervisual__text-small {
+    font-size: 15px !important;
+    line-height: 1.85 !important;
+    color: var(--pp-muted) !important;
+    max-width: 56ch;
+}
+
+body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+    .hypervisual__text-wrapper {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+@media (max-width: 900px) {
+    body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large) {
+        padding: 44px 16px;
+    }
+
+    body.template-product .hypervisual__content-block--columns:has(.hypervisual__text-large)
+        .hypervisual__columns-wrapper,
+    body.template-product #hypervisual__version-original > div:nth-child(3)
+        .hypervisual__columns-wrapper {
+        flex-direction: column;
+        gap: 28px;
+    }
+}
+
+
+/*// 21. Trust section — three cards
+// -----------------------------------------------------------------------------
+// The three statements are each their own <div> inside .hypervisual__text_line_two,
+// which makes a real three-up grid possible without touching markup.
+//
+// FRAGILITY NOTE: that container also holds two spacer <div>s (first and last)
+// containing only <br>, so they are hidden by position. If the copy is edited in
+// Hypervisual and the spacer count changes, revisit the :first-child/:last-child
+// rules below — the cards themselves key off the grid, not position.
+// =========================================================================== */
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large)) {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 8px 20px 76px;
+}
+
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+    .hypervisual__text_line_two {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* Spacer divs holding only <br>. */
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+    .hypervisual__text_line_two > div:first-child,
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+    .hypervisual__text_line_two > div:last-child {
+    display: none;
+}
+
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+    .hypervisual__text_line_two > div {
+    padding: 28px 24px;
+    border: 1px solid var(--pp-line);
+    border-radius: 3px;
+    background: #fbfbfa;
+    font-size: 14px !important;
+    line-height: 1.65;
+    color: var(--pp-muted) !important;
+    transition: border-color var(--pp-speed) var(--pp-ease),
+                box-shadow var(--pp-speed) var(--pp-ease);
+}
+
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+    .hypervisual__text_line_two > div:hover {
+    border-color: rgba(20, 20, 15, 0.3);
+    box-shadow: 0 12px 30px -20px rgba(20, 20, 15, 0.4);
+}
+
+/* The <br><br> inside each statement forces unwanted gaps once carded. */
+body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+    .hypervisual__text_line_two > div br {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
+        .hypervisual__text_line_two {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}
+
+
+/*// 22. Video headings
+// -----------------------------------------------------------------------------
+// Neither video had any heading, so both arrived with no framing or context.
+// Headings are injected with ::before because this is app-generated content —
+// see the accessibility trade-off noted in section 17; the same applies here.
+// =========================================================================== */
+body.template-product #hypervisual__version-original > div:nth-child(1)::before {
+    content: "See the Quantus in Motion";
+    display: block;
+    text-align: center;
+    font-size: clamp(20px, 1.1vw + 12px, 27px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--pp-ink);
+    margin: 0 auto 10px;
+}
+
+body.template-product #hypervisual__version-original > div:nth-child(1)::after {
+    content: "A closer look at the dual balance movement";
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--pp-faint);
+    margin-top: 16px;
+}
+
+/* Expert review: the existing "Video review by Watch Addict" line becomes the
+   supporting caption under an injected section heading. */
+body.template-product #hypervisual__version-original > div:nth-child(6) {
+    max-width: 1160px;
+    margin: 56px auto 0;
+    padding: 0 20px;
+    text-align: center;
+}
+
+body.template-product #hypervisual__version-original > div:nth-child(6)::before {
+    content: "Watch the Expert Review";
+    display: block;
+    font-size: clamp(20px, 1.1vw + 12px, 27px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--pp-ink);
+    margin-bottom: 8px;
+}
+
+body.template-product #hypervisual__version-original > div:nth-child(6) .hypervisual__text-wrapper {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+body.template-product #hypervisual__version-original > div:nth-child(6) [class*="hypervisual__text"] {
+    font-size: 13px !important;
+    letter-spacing: 0.04em;
+    color: var(--pp-faint) !important;
+}
+
+body.template-product #hypervisual__version-original > div:nth-child(7) {
+    margin-top: 22px;
+    margin-bottom: 84px;
+}
+
+
+/*// 23. Reviews heading copy
+// -----------------------------------------------------------------------------
+// Overrides the "Customer Reviews" label set in section 17.
+// =========================================================================== */
+body.template-product .shopify-section:has(#looxReviews)::before {
+    content: "Worn. Experienced. Remembered.";
+    font-size: clamp(19px, 1vw + 12px, 25px);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    margin-bottom: 34px;
+}
+
+
+/*// 24. Main image well
+// -----------------------------------------------------------------------------
+// The gallery sits directly on white, so a white-background product shot has no
+// edge and the watch does not read as a subject. A faint well gives it one.
+// =========================================================================== */
+body.template-product .productView-images {
+    background: linear-gradient(180deg, #fafaf8 0%, #f4f4f1 100%);
+    border-radius: 4px;
+}
+
+
+/*// 25. Buy box hierarchy
+// -----------------------------------------------------------------------------
+// Tightens the title/price relationship and pushes the CTA further from the
+// assurance rules above it, so the eye steps title -> price -> proof -> action
+// instead of reading one undifferentiated column.
+// =========================================================================== */
+body.template-product .productView-price {
+    margin-top: 4px;
+}
+
+body.template-product .productView-action .button,
+body.template-product .productView-buttons .product-form__submit {
+    min-height: 60px;
+    letter-spacing: 0.2em;
+}
