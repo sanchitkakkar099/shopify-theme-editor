@@ -1088,7 +1088,7 @@ body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual
 // -----------------------------------------------------------------------------
 // Overrides the "Customer Reviews" label set in section 17.
 // =========================================================================== */
-body.template-product .shopify-section:has(#looxReviews)::before {
+body.template-product .shopify-section:has(#looxReviews:not(:empty)):before {
     content: "Worn. Experienced. Remembered.";
     font-size: clamp(19px, 1vw + 12px, 25px);
     font-weight: 500;
