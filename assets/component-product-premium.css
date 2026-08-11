@@ -650,6 +650,36 @@ body.template-product .productView-stickyCart .quantity__container {
     height: 48px;
 }
 
+/* Quantity / Add to cart alignment.
+//
+// Measured on the live bar: both controls are exactly 48px tall, but the
+// quantity box sat 6px lower than the button, and neither was centred in the
+// 68px row. Matching heights was never the problem — alignment was.
+//
+// Two causes, both fixed below:
+//   1. .sticky-actions-row is display:flex but align-items resolves to `normal`
+//      (stretch), so the two controls anchored to different edges.
+//   2. .quantity__group is a block wrapper 20px taller than the control inside
+//      it, contributing the 6px offset.
+//
+// With both corrected the row collapses to a clean 48px and the two controls
+// share one baseline. */
+body.template-product .productView-stickyCart .sticky-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+body.template-product .productView-stickyCart .quantity__group {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+body.template-product .productView-stickyCart .quantity__container {
+    margin: 0;
+}
+
 
 /* ============================================================================
    BELOW THE FOLD
