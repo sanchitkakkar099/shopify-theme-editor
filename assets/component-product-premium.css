@@ -1060,11 +1060,21 @@ body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual
     padding: 8px 20px 76px;
 }
 
+/* LAYOUT DECISION — cards stack, they do not sit three-across.
+
+   This block is a genuine two-up: a 600px beauty image beside a text column
+   whose wrapper measures 432px. Three cards across that column render at 130px
+   each, too cramped for a sentence of copy. Stacked, each card gets the full
+   432px and the group balances the image height beside it.
+
+   To run them three-across instead, the block has to break out of its columns
+   layout so the image becomes a full-width band above — a larger compositional
+   change than styling, and worth previewing before committing to. */
 body.template-product .hypervisual__content-block--columns:not(:has(.hypervisual__text-large))
     .hypervisual__text_line_two {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 14px;
     align-items: stretch;
 }
 
