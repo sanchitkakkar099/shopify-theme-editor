@@ -31,8 +31,14 @@
 //   11. Media gallery & thumbnails
 //   12. Tabs / accordion
 //   13. Sticky add to cart
-//   14. Mobile refinements
-//   15. Motion & focus accessibility
+//   --- below the fold ---
+//   14. Section rhythm
+//   15. Section headings ("Related Products")
+//   16. Product cards
+//   17. Reviews & app-built content (limited surface — see notes)
+//   --- responsive & a11y ---
+//   18. Mobile refinements
+//   19. Motion & focus accessibility
 // =============================================================================*/
 
 
@@ -58,26 +64,34 @@ body.template-product {
 
 /*// 2. Column balance & measure
 // -----------------------------------------------------------------------------
-// full_width_2 lets the info column stretch to the viewport, pushing line length
-// far past a comfortable measure and leaving the buy box visually adrift.
+// Deliberately empty.
+//
+// An earlier revision capped .productView-product at 560px and added 32px of
+// left padding, on the assumption that full_width_2 lets the info column
+// stretch to the viewport. Measured against the live preview, that column
+// renders at 436px at a 1280px viewport — already narrower than the cap, so the
+// rule did nothing and the padding would only have squeezed it further.
+//
+// Type sizes in the sections below are tuned to that real 436px measure. If the
+// section container setting is ever widened, revisit them together.
 // =========================================================================== */
-@media (min-width: 1200px) {
-    body.template-product .halo-productView-right.productView-details {
-        padding-left: 32px;
-    }
-
-    body.template-product .halo-productView-right .productView-product {
-        max-width: 560px;
-    }
-}
 
 
 /*// 3. Rating + title
+// -----------------------------------------------------------------------------
+// Sized against the real 436px column. This product's title is long (11 words);
+// at 31px it broke to four lines and pushed the price below the fold, so the
+// upper bound is held at 26px, which lands it at three.
+//
+// NOTE the spacing inside clamp(): CSS math requires whitespace around `+`.
+// `1.05vw+9px` is invalid and the whole declaration is dropped silently, which
+// is exactly how an earlier revision ended up rendering at the theme's default
+// while appearing correct in the source.
 // =========================================================================== */
 body.template-product .productView-title {
-    font-size: clamp(24px, 1.5vw + 15px, 34px);
-    line-height: 1.18;
-    letter-spacing: -0.018em;
+    font-size: clamp(21px, 1.05vw + 9px, 26px);
+    line-height: 1.2;
+    letter-spacing: -0.017em;
     font-weight: 500;
     color: var(--pp-ink);
     text-wrap: balance;
@@ -494,10 +508,26 @@ body.template-product .productView-images:hover .productView-iconZoom {
 body.template-product .productView-tab .toggleLink,
 body.template-product .productView-tab .tab .tab-title {
     border-top: 1px solid var(--pp-line);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
     color: var(--pp-ink);
     transition: color var(--pp-speed) var(--pp-ease);
+}
+
+/* The section's own inline <style> sets tab title size from a theme setting via
+   an #ProductSection-<id> selector, which outranks anything here on specificity.
+   !important is the only lever short of editing the snippet. */
+body.template-product .productView-tab .toggleLink,
+body.template-product .productView-tab .tab .tab-title {
+    font-size: 12px !important;
+}
+
+/* Accordion headings render underlined by default, which reads as a link
+   rather than a section heading. */
+body.template-product .productView-tab .toggleLink,
+body.template-product .productView-tab .toggleLink .text,
+body.template-product .productView-tab .tab-title .text {
+    text-decoration: none !important;
 }
 
 body.template-product .productView-tab .toggleLink:hover,
@@ -587,7 +617,168 @@ body.template-product .productView-stickyCart .quantity__container {
 }
 
 
-/*// 14. Mobile refinements
+/* ============================================================================
+   BELOW THE FOLD
+   ----------------------------------------------------------------------------
+   Section order under the buy box, confirmed against the rendered page:
+
+     1. custom_liquid_xPAQrp   -> Hypervisual app content   (~10700px tall)
+     2. apps block             -> Loox reviews              (iframe)
+     3. product-recommendations-> "Related Products"        (theme markup)
+
+   Only #3 is theme markup that can be styled properly. See section 17 for what
+   is genuinely reachable on the other two and why.
+   ========================================================================== */
+
+
+/*// 14. Section rhythm
+// -----------------------------------------------------------------------------
+// The sections below the buy box run together with no consistent separation, so
+// the page reads as one long scroll rather than distinct chapters. A single
+// hairline plus symmetrical padding gives each one the same beat.
+// =========================================================================== */
+body.template-product .product-recommendations,
+body.template-product .product-recently-viewed {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    border-top: 1px solid var(--pp-line);
+}
+
+/* The Hypervisual block brings its own internal spacing; it only needs to be
+   separated from the buy box above it. */
+body.template-product .hypervisual__root {
+    margin-top: 12px;
+}
+
+
+/*// 15. Section headings
+// -----------------------------------------------------------------------------
+// "Related Products" ships as a plain centred H3. Reset to a small tracked
+// uppercase label flanked by hairlines — the same rule weight used inside the
+// buy box, so the whole page shares one heading system.
+//
+// The theme sets heading size from a section setting via an #ProductSection-<id>
+// rule, which outranks class selectors; !important is required on font-size.
+// =========================================================================== */
+body.template-product .halo-block-header {
+    margin-bottom: 36px;
+    padding-top: 8px;
+}
+
+body.template-product .halo-block-header .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin: 0;
+    border: 0;
+}
+
+body.template-product .halo-block-header .title::before,
+body.template-product .halo-block-header .title::after {
+    content: "";
+    flex: 1 1 auto;
+    max-width: 120px;
+    height: 1px;
+    background: var(--pp-line);
+}
+
+body.template-product .halo-block-header .title .text {
+    font-size: 12px !important;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--pp-ink);
+    white-space: nowrap;
+}
+
+
+/*// 16. Product cards
+// -----------------------------------------------------------------------------
+// Cards sit on white with no containment, so the grid reads as loose text under
+// floating images. A soft media panel gives each card an edge, and a contained
+// image scale on hover supplies the interaction the grid currently lacks.
+// =========================================================================== */
+body.template-product .product-item .card-product__wrapper {
+    overflow: hidden;
+    background: #f7f7f5;
+    border-radius: var(--pp-radius);
+}
+
+body.template-product .product-item .card-media img {
+    transition: transform 600ms var(--pp-ease);
+}
+
+body.template-product .product-item:hover .card-media img {
+    transform: scale(1.045);
+}
+
+body.template-product .product-item .card-information {
+    padding-top: 18px;
+}
+
+/* Card titles ship underlined, which reads as a link rather than a product
+   name and adds visual noise across a four-up grid. */
+body.template-product .product-item .card-title {
+    font-size: 13px !important;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: var(--pp-ink);
+    text-decoration: none !important;
+}
+
+body.template-product .product-item .card-title::after {
+    display: none !important;
+}
+
+body.template-product .product-item .card-price .price-item,
+body.template-product .product-item .card-price .money {
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    color: var(--pp-muted);
+}
+
+body.template-product .product-item .card-price .price--on-sale .price-item--regular {
+    color: var(--pp-ink);
+    font-weight: 500;
+}
+
+
+/*// 17. Reviews & app-built content
+// -----------------------------------------------------------------------------
+// SCOPE LIMIT — worth knowing before anyone tries to extend this.
+//
+// Loox renders its reviews into an <iframe>. Styles cannot cross that boundary,
+// so nothing inside the widget (star colour, review cards, typography) is
+// reachable from this stylesheet at all. It has to be themed in the Loox app
+// settings. The same applies to Hypervisual, which injects its own stylesheets
+// and markup; restyling its internals from here would break on their next
+// template change.
+//
+// What IS reachable is the frame around each: the space they occupy and the
+// rules that separate them from the sections above and below. That is all this
+// section attempts, deliberately.
+// =========================================================================== */
+body.template-product .shopify-app-block:has(#looxReviews),
+body.template-product #looxReviews {
+    display: block;
+}
+
+/* Give the reviews block the same chapter break as the other sections.
+   The id is section-instance specific, so target the widget itself and walk up
+   with :has() where supported, falling back to padding on the widget. */
+body.template-product #looxReviews {
+    padding-top: 8px;
+}
+
+body.template-product .shopify-section:has(#looxReviews) {
+    padding-top: 60px;
+    padding-bottom: 28px;
+    border-top: 1px solid var(--pp-line);
+}
+
+
+/*// 18. Mobile refinements
 // =========================================================================== */
 @media (max-width: 767px) {
     body.template-product .productView-title {
@@ -638,7 +829,7 @@ body.template-product .productView-stickyCart .quantity__container {
 }
 
 
-/*// 15. Motion & focus accessibility
+/*// 19. Motion & focus accessibility
 // -----------------------------------------------------------------------------
 // The theme ships a horizontal-shaking ATC animation and fade-up scroll
 // triggers. Honour the OS reduced-motion preference, and keep the keyboard
