@@ -737,7 +737,7 @@ body.template-product .halo-block-header .title {
     margin: 0;
     border: 0;
 }
-
+/* 
 body.template-product .halo-block-header .title::before,
 body.template-product .halo-block-header .title::after {
     content: "";
@@ -745,7 +745,7 @@ body.template-product .halo-block-header .title::after {
     max-width: 120px;
     height: 1px;
     background: var(--pp-line);
-}
+} */
 
 body.template-product .halo-block-header .title .text {
     font-size: 24px !important;
